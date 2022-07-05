@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"  >
+
+<mapper namespace="cn.tedu.store.mapper.UserMapper">
+
+<!--插入用户数据  -->
+<!--Integer addnew(User user)  -->
+<insert id="addnew" parameterType="cn.tedu.store.entity.User" 
+ useGeneratedKeys="true" keyProperty="id"
+ >
+    insert into t_student(name,gender,nid,company,position,phone,Cname,Studytime,teacher,achievement,Classhours,pcourse,start_time,end_time
+      )values(#{name},#{gender},
+      #{nid},#{company},#{position},#{phone},
+      #{Cname},#{Studytime},
+      #{teacher},#{achievement},
+      #{Classhours},#{pcourse},
+      #{startime},#{endtime}
+    )
+</insert>
+
+<!--根据用户名查寻用户数据  -->
+<!--应用于添加用户  -->
+<!--User findByUsername(String username);  -->
+<select id="findByname" resultType="cn.tedu.store.entity.User" >
+  select
+    id,name,gender,nid,company,position,phone,Cname,Studyplace,Studytime,teacher,achievement,Classhours,pcourse,start_time startime,end_time endtime
+  from
+    t_student
+  where
+    name=#{name}
+</select>
+
+<!--查学生所有信息 -->
+<select id="findAll" resultType="cn.tedu.store.entity.User" >
+  select
+    id,name,gender,nid,company,position,phone
+  from
+    t_student
+</select>
+
+<!--查学生成绩情况 -->
+<select id="findmarh" resultType="cn.tedu.store.entity.User" >
+  select
+    id,Cname,Studyplace,Studytime,teacher,achievement,Classhours
+  from
+    t_student
+</select>
+
+<!--个人培训计划查寻 -->
+<select id="findplan" resultType="cn.tedu.store.entity.User" >
+  select
+    id,name,pcourse,start_time startime,end_time endtime
+  from
+    t_student
+</select>
+
+<!--学时低于72查寻 -->
+<select id="findStime" resultType="cn.tedu.store.entity.User" >
+  select
+    id,name,Classhours,Cname
+  from
+    t_student
+  where
+    Classhours &lt;=72 and position="学生"
+</select>
+
+<!-- 修改学生资料 -->
+<!-- Integer updateAll(User user); -->
+<update id="updateAll">
+   update
+     t_student
+   set      
+    <if test="gender != null">
+    gender=#{gender},
+    </if>
+    
+    <if test="nid != null">
+    nid=#{nid},
+    </if>
+    
+    <if test="company != null">
+    company=#{company},
+    </if>
+    <if test="company != null">
+    company=#{company},
+    </if>
+    <if test="position != null">
+    position=#{position},
+    </if>
+    <if test="phone != null">
+    phone=#{phone}
+    </if>
+   where
+    name=#{name}
+</update>
+
+</mapper>
+
+
+
+
+

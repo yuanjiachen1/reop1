@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+	<meta charset="UTF-8">
+		<!--edge浏览器H5兼容设置-->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!--360浏览器H5兼容设置-->
+		<meta name="renderer" content="webkit" />
+		<title>学生信息修改</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--导入核心文件-->
+		<script src="../bootstrap3/js/holder.js"></script>
+		<link href="../bootstrap3/css/bootstrap.css" rel="stylesheet" type="text/css">
+		<script src="../bootstrap3/jquery-1.9.1.min.js"></script>
+		<script src="../bootstrap3/js/bootstrap.js"></script>
+		<!-- 字体图标 -->
+		<link rel="stylesheet" href="../bootstrap3/font-awesome-4.7.0/css/font-awesome.css" />
+	</head>
+	<body>
+				<p>修改学生信息</p>
+				<!--表单开始-->
+				<form id="form-update" name="form" class="form-horizontal" role="form" >
+					<!--用户名-->
+					<div>						
+							<input name="name" type="text" class="form-control"  placeholder="请输入要修改的用户名">					
+					</div>
+					
+					<!--性别  -->
+					<div>			
+							<input name="gender" type="text" class="form-control"  placeholder="请输入性别">
+					</div>
+					
+					<!--身份证号-->
+					<div>						
+							<input name="nid" type="text" class="form-control"  placeholder="请输入身份证">
+					</div>
+					
+					<!--所在单位-->
+					<div>						
+							<input name="company" type="text" class="form-control"  placeholder="所在单位">
+					</div>
+				
+					
+					<!--职位-->
+					<div >					
+							<input name="position" type="text" class="form-control"  placeholder="职位">						
+					</div>
+					
+					<!--联系方式-->
+					<div>						
+							<input name="phone" type="text" class="form-control"  placeholder="联系方式">						
+					</div>
+					
+					<!--提交按钮-->
+					<div>						
+							<input id="btn-update" class="btn btn-primary" type="button" value="立即修改" />
+								
+					</div>
+				</form>
+	
+
+		
+		
+		<script type="text/javascript">
+		  //为注册按钮绑定单机事件   
+		$("#btn-update").click(function(){
+			//警告name的值是什么		
+				//将请求提交到哪里
+				//当前位置:web/register.html
+				//目标位置:user/reg.do
+			var url = "../user/update.do";
+			var data = $("#form-update").serialize();
+			console.log("注册参数"+data);
+			 //发出ajax请求,并处理结果
+			 $.ajax({
+				   "url": url,
+				   "data":data,
+				   "type": "GET",
+				   "dataType":"json",
+				   "success":function(json){
+					  if(json.state == 200){
+						  alert("修改成功");
+						  window.location = "Student.html";
+					  }else{
+						  alert(json.message);
+					  }
+				   }
+			 });
+			 });
+		</script>
+	</body>
+
+</html>

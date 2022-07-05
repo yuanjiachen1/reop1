@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+		<head>
+		<meta charset="UTF-8">
+		<!--edge浏览器H5兼容设置-->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!--360浏览器H5兼容设置-->
+		<meta name="renderer" content="webkit" />
+		<title>学子商城</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--导入核心文件-->
+		<script src="../bootstrap3/js/holder.js"></script>
+		<link href="../bootstrap3/css/bootstrap.css" rel="stylesheet" type="text/css">
+		<script src="../bootstrap3/jquery-1.9.1.min.js"></script>
+		<script src="../bootstrap3/js/bootstrap.js"></script>
+		<script src="../bootstrap3/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/autoLogin.js" type="text/javascript"></script>
+	</head>
+</head>
+<body>
+
+<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<p class="panel-title">个人计划培训</p>
+					</div>
+					<div>
+						<table border="1">
+						<tr>
+						<th>学员编号</th>
+						<th>预培训课程</th>				
+						<th>开始时间&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+						<th >结束时间&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>											
+						</tr>												          
+				    	    </table>
+				    	   
+					</div>
+					<div id="List-plan" class="panel-body panel-item">
+						
+					</div>
+					<div><a href="login.html">返回</a></div>
+					
+				</div>
+			</div>
+		
+
+<script type="text/javascript">
+ $(document).ready(function(){
+	 showList();
+});
+
+function showList() {
+	var url = "../user/plan.do";
+	$.ajax({
+		   "url": url,
+		   "type": "GET",
+		   "dataType":"json",
+		   "success":function(json){
+			   $("#List-plan").empty();
+			  var list =json.data;
+			      console.log=("size="+list.length);
+			  for(var i =0;i<list.length;i++){
+				  console.log=("title"+list[i].name);
+				  
+				 var html = 
+					 
+					    '<table border="1">	'																		   
+						+'<td>#{id}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>'
+						+'<td>#{pcourse}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>'
+						+'<td>#{start_time}</a></td>'
+						+'<td>#{end_time}</td>'					
+						+'</table>'
+				    	   /*   <td>
+				    	    <a href="update.do?id=#{id}"
+				    	    onclick="return confirm('确定修改#{name}学生信息吗?');">修改</a>
+				    	    </td>			 */    	    
+				    	    
+				  
+				  html= html.replace("#{id}",list[i].id);
+				  html= html.replace("#{pcourse}",list[i].pcourse);
+				  html= html.replace("#{start_time}",list[i].startime);
+				  html= html.replace("#{end_time}",list[i].endtime);				  
+				  $("#List-plan").append(html);
+			  }
+		   }
+      });
+}
+</script>
+
+</body>
+</html>
